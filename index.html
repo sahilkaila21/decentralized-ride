@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Decentral Ride</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places"></script>
   <style>
     /* Reset */
     * {
@@ -14,8 +15,8 @@
     }
     body, html {
       font-family: 'Inter', sans-serif;
-      background-color: #fef9f6; /* cream white */
-      color: #4b3f72; /* deep lavender text */
+      background-color: #fef9f6;
+      color: #4b3f72;
       scroll-behavior: smooth;
     }
     a {
@@ -25,12 +26,11 @@
     a:hover {
       text-decoration: underline;
     }
-    /* Navbar */
     nav {
       position: fixed;
       top: 0;
       width: 100%;
-      background: #fef9f6; /* cream white */
+      background: #fef9f6;
       box-shadow: 0 2px 6px rgb(75 63 114 / 0.15);
       z-index: 1000;
       padding: 1rem 3rem;
@@ -41,12 +41,12 @@
     .logo {
       font-weight: 700;
       font-size: 1.5rem;
-      color: #9a7bcf; /* lavender */
+      color: #9a7bcf;
       user-select: none;
     }
     .logo span {
       font-weight: 900;
-      color: #6a4ca2; /* darker lavender */
+      color: #6a4ca2;
     }
     .nav-links {
       display: flex;
@@ -61,10 +61,9 @@
       transition: background 0.3s ease;
     }
     .nav-links a:hover {
-      background: #d7c9f2; /* light lavender */
+      background: #d7c9f2;
       color: #6a4ca2;
     }
-    /* Hero Section */
     .hero {
       padding: 140px 2rem 4rem;
       max-width: 1200px;
@@ -75,15 +74,14 @@
       font-size: 3rem;
       font-weight: 900;
       margin-bottom: 0.5rem;
-      color: #6a4ca2; /* darker lavender */
+      color: #6a4ca2;
     }
     .hero p {
       font-size: 1.25rem;
       margin-bottom: 2rem;
-      color: #7a69a3; /* medium lavender */
+      color: #7a69a3;
       font-weight: 500;
     }
-    /* Search Form */
     .search-form {
       max-width: 700px;
       margin: 0 auto;
@@ -101,24 +99,26 @@
     label {
       font-weight: 600;
       margin-bottom: 0.5rem;
-      color: #6a4ca2; /* darker lavender */
+      color: #6a4ca2;
     }
     input[type="text"] {
       padding: 0.75rem 1rem;
-      border: 2px solid #9a7bcf; /* lavender border */
+      border: 2px solid #9a7bcf;
       border-radius: 6px;
       font-size: 1rem;
-      transition: border-color 0.3s ease;
       background: #fff;
       color: #4b3f72;
     }
     input[type="text"]:focus {
       outline: none;
       border-color: #6a4ca2;
-      background-color: #f4effe; /* very light lavender */
+      background-color: #f4effe;
+    }
+    .pac-container {
+      z-index: 10000 !important;
     }
     button.search-btn {
-      background-color: #9a7bcf; /* lavender */
+      background-color: #9a7bcf;
       color: white;
       border: none;
       border-radius: 6px;
@@ -131,9 +131,8 @@
       align-self: center;
     }
     button.search-btn:hover {
-      background-color: #6a4ca2; /* darker lavender */
+      background-color: #6a4ca2;
     }
-    /* Ride Options Section */
     .ride-options {
       max-width: 1000px;
       margin: 4rem auto 6rem;
@@ -143,7 +142,7 @@
       font-weight: 900;
       font-size: 2rem;
       margin-bottom: 1.5rem;
-      color: #6a4ca2; /* darker lavender */
+      color: #6a4ca2;
       text-align: center;
     }
     .options-grid {
@@ -152,7 +151,7 @@
       gap: 1.5rem;
     }
     .option-card {
-      border: 2px solid #9a7bcf; /* lavender border */
+      border: 2px solid #9a7bcf;
       border-radius: 12px;
       padding: 1.5rem;
       text-align: center;
@@ -175,7 +174,6 @@
       font-size: 0.95rem;
       color: #7a69a3;
     }
-    /* Suggestions Section (new) */
     .suggestions {
       max-width: 1000px;
       margin: 4rem auto 6rem;
@@ -233,15 +231,13 @@
       color: #6a4ca2;
       text-decoration: underline;
     }
-    /* Footer */
     footer {
-      background-color: #6a4ca2; /* darker lavender */
-      color: #fef9f6; /* cream white */
+      background-color: #6a4ca2;
+      color: #fef9f6;
       text-align: center;
       padding: 1rem 2rem;
       font-weight: 600;
     }
-    /* Responsive */
     @media (max-width: 600px) {
       .hero h1 {
         font-size: 2.25rem;
@@ -291,75 +287,38 @@
   <section class="ride-options" id="ride-options">
     <h2>Choose Your Ride</h2>
     <div class="options-grid">
-      <div class="option-card">
-        <div class="option-title">Economy</div>
-        <div class="option-desc">Affordable rides for everyday trips.</div>
-      </div>
-      <div class="option-card">
-        <div class="option-title">Premium</div>
-        <div class="option-desc">Comfort and style for special occasions.</div>
-      </div>
-      <div class="option-card">
-        <div class="option-title">SUV</div>
-        <div class="option-desc">Spacious rides for groups and luggage.</div>
-      </div>
-      <div class="option-card">
-        <div class="option-title">Electric</div>
-        <div class="option-desc">Eco-friendly rides powered by electricity.</div>
-      </div>
+      <div class="option-card"><div class="option-title">Economy</div><div class="option-desc">Affordable rides for everyday trips.</div></div>
+      <div class="option-card"><div class="option-title">Premium</div><div class="option-desc">Comfort and style for special occasions.</div></div>
+      <div class="option-card"><div class="option-title">SUV</div><div class="option-desc">Spacious rides for groups and luggage.</div></div>
+      <div class="option-card"><div class="option-title">Electric</div><div class="option-desc">Eco-friendly rides powered by electricity.</div></div>
     </div>
   </section>
 
   <section class="suggestions" id="suggestions">
     <h2>Suggestions</h2>
     <div class="suggestions-grid">
-      <div class="suggestion-card" tabindex="0">
-        <div class="suggestion-top">
-          <div class="suggestion-title">Ride</div>
-          <div class="suggestion-desc">Go anywhere with Uber. Request a ride, hop in, and go.</div>
-        </div>
-        <div class="suggestion-bottom">Details</div>
-      </div>
-      <div class="suggestion-card" tabindex="0">
-        <div class="suggestion-top">
-          <div class="suggestion-title">Reserve</div>
-          <div class="suggestion-desc">Reserve your ride in advance so you can relax on the day of your trip.</div>
-        </div>
-        <div class="suggestion-bottom">Details</div>
-      </div>
-      <div class="suggestion-card" tabindex="0">
-        <div class="suggestion-top">
-          <div class="suggestion-title">Rental Cars</div>
-          <div class="suggestion-desc">Your perfect rental car is a few clicks away. Learn more about Uber Rent.</div>
-        </div>
-        <div class="suggestion-bottom">Details</div>
-      </div>
-      <div class="suggestion-card" tabindex="0">
-        <div class="suggestion-top">
-          <div class="suggestion-title">Courier</div>
-          <div class="suggestion-desc">Uber makes same-day item delivery easier than ever.</div>
-        </div>
-        <div class="suggestion-bottom">Details</div>
-      </div>
-      <div class="suggestion-card" tabindex="0">
-        <div class="suggestion-top">
-          <div class="suggestion-title">Food</div>
-          <div class="suggestion-desc">Order delivery from local restaurants with Uber Eats.</div>
-        </div>
-        <div class="suggestion-bottom">Details</div>
-      </div>
-      <div class="suggestion-card" tabindex="0">
-        <div class="suggestion-top">
-          <div class="suggestion-title">Grocery</div>
-          <div class="suggestion-desc">Get groceries delivered to your door with Uber Eats.</div>
-        </div>
-        <div class="suggestion-bottom">Details</div>
-      </div>
+      <div class="suggestion-card"><div class="suggestion-top"><div class="suggestion-title">Ride</div><div class="suggestion-desc">Go anywhere with Uber. Request a ride, hop in, and go.</div></div><div class="suggestion-bottom">Details</div></div>
+      <div class="suggestion-card"><div class="suggestion-top"><div class="suggestion-title">Reserve</div><div class="suggestion-desc">Reserve your ride in advance so you can relax on the day of your trip.</div></div><div class="suggestion-bottom">Details</div></div>
+      <div class="suggestion-card"><div class="suggestion-top"><div class="suggestion-title">Rental Cars</div><div class="suggestion-desc">Your perfect rental car is a few clicks away. Learn more about Uber Rent.</div></div><div class="suggestion-bottom">Details</div></div>
+      <div class="suggestion-card"><div class="suggestion-top"><div class="suggestion-title">Courier</div><div class="suggestion-desc">Uber makes same-day item delivery easier than ever.</div></div><div class="suggestion-bottom">Details</div></div>
+      <div class="suggestion-card"><div class="suggestion-top"><div class="suggestion-title">Food</div><div class="suggestion-desc">Order delivery from local restaurants with Uber Eats.</div></div><div class="suggestion-bottom">Details</div></div>
+      <div class="suggestion-card"><div class="suggestion-top"><div class="suggestion-title">Grocery</div><div class="suggestion-desc">Get groceries delivered to your door with Uber Eats.</div></div><div class="suggestion-bottom">Details</div></div>
     </div>
   </section>
 
   <footer id="contact">
-    📬 Contact: sahilkaila21@email.com &nbsp;&nbsp;|&nbsp;&nbsp; Built with ❤️ for Decentralization @copyright Kaila. 
+    📬 Contact: sahilkaila21@email.com &nbsp;&nbsp;|&nbsp;&nbsp; Built with ❤️ for Decentralization @copyright Kaila.
   </footer>
+
+  <!-- Google Places Autocomplete -->
+  <script>
+    function initAutocomplete() {
+      const pickupInput = document.getElementById('pickup');
+      const dropoffInput = document.getElementById('dropoff');
+      new google.maps.places.Autocomplete(pickupInput);
+      new google.maps.places.Autocomplete(dropoffInput);
+    }
+    window.addEventListener('load', initAutocomplete);
+  </script>
 </body>
 </html>
