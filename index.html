@@ -2,180 +2,364 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Decentralized Ride App</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Decentral Ride</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
+    /* Reset */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-    body {
+    body, html {
       font-family: 'Inter', sans-serif;
-      background: #000;
-      color: #fff;
-      padding: 40px 20px;
+      background-color: #fef9f6; /* cream white */
+      color: #4b3f72; /* deep lavender text */
+      scroll-behavior: smooth;
     }
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      text-align: center;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
-    h1 {
-      font-size: 36px;
-      color: #0fcfeb;
-      margin-bottom: 10px;
+    a:hover {
+      text-decoration: underline;
     }
-    h2 {
-      font-size: 20px;
-      color: #ccc;
-      margin-bottom: 40px;
-    }
-    .features, .suggestions {
-      margin-top: 40px;
-    }
-    .features ul {
-      list-style: none;
-      text-align: left;
-      margin: 0 auto;
-      max-width: 500px;
-    }
-    .features li {
-      background: #222;
-      padding: 12px;
-      margin: 10px 0;
-      border-radius: 8px;
-      font-size: 15px;
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #fef9f6; /* cream white */
+      box-shadow: 0 2px 6px rgb(75 63 114 / 0.15);
+      z-index: 1000;
+      padding: 1rem 3rem;
       display: flex;
+      justify-content: space-between;
       align-items: center;
     }
-    .features li::before {
-      content: '✔';
-      color: #0fcfeb;
-      margin-right: 10px;
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #9a7bcf; /* lavender */
+      user-select: none;
+    }
+    .logo span {
+      font-weight: 900;
+      color: #6a4ca2; /* darker lavender */
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #6a4ca2;
+    }
+    .nav-links a {
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      transition: background 0.3s ease;
+    }
+    .nav-links a:hover {
+      background: #d7c9f2; /* light lavender */
+      color: #6a4ca2;
+    }
+    /* Hero Section */
+    .hero {
+      padding: 140px 2rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+      color: #6a4ca2; /* darker lavender */
+    }
+    .hero p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      color: #7a69a3; /* medium lavender */
+      font-weight: 500;
+    }
+    /* Search Form */
+    .search-form {
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .search-group {
+      flex: 1 1 300px;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    label {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #6a4ca2; /* darker lavender */
+    }
+    input[type="text"] {
+      padding: 0.75rem 1rem;
+      border: 2px solid #9a7bcf; /* lavender border */
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+      background: #fff;
+      color: #4b3f72;
+    }
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #6a4ca2;
+      background-color: #f4effe; /* very light lavender */
+    }
+    button.search-btn {
+      background-color: #9a7bcf; /* lavender */
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 0 3rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      min-height: 52px;
+      align-self: center;
+    }
+    button.search-btn:hover {
+      background-color: #6a4ca2; /* darker lavender */
+    }
+    /* Ride Options Section */
+    .ride-options {
+      max-width: 1000px;
+      margin: 4rem auto 6rem;
+      padding: 0 2rem;
+    }
+    .ride-options h2 {
+      font-weight: 900;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #6a4ca2; /* darker lavender */
+      text-align: center;
+    }
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      gap: 1.5rem;
+    }
+    .option-card {
+      border: 2px solid #9a7bcf; /* lavender border */
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: box-shadow 0.3s ease;
+      cursor: pointer;
+      user-select: none;
+      background: #fff;
+      color: #4b3f72;
+    }
+    .option-card:hover {
+      box-shadow: 0 10px 20px rgba(154, 123, 207, 0.3);
+    }
+    .option-title {
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: #6a4ca2;
+    }
+    .option-desc {
+      font-size: 0.95rem;
+      color: #7a69a3;
+    }
+    /* Suggestions Section (new) */
+    .suggestions {
+      max-width: 1000px;
+      margin: 4rem auto 6rem;
+      padding: 0 2rem;
+    }
+    .suggestions h2 {
+      font-weight: 900;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: #6a4ca2;
+      text-align: center;
     }
     .suggestions-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+      gap: 1.5rem;
     }
-    .suggestion-box {
-      background: #111;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    .suggestion-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 0 0 1px #d7c9f2;
+      padding: 1.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      transition: box-shadow 0.3s ease;
     }
-    .suggestion-box img {
-      width: 100%;
-      height: auto;
-      display: block;
+    .suggestion-card:hover {
+      box-shadow: 0 10px 20px rgba(154, 123, 207, 0.3);
     }
-    .suggestion-content {
-      padding: 20px;
-      text-align: left;
+    .suggestion-top {
+      margin-bottom: 1rem;
     }
     .suggestion-title {
-      font-size: 18px;
-      color: #0fcfeb;
-      font-weight: bold;
-      margin-bottom: 10px;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #6a4ca2;
+      margin-bottom: 0.5rem;
     }
     .suggestion-desc {
-      font-size: 14px;
-      color: #ccc;
-      margin-bottom: 10px;
+      font-size: 1rem;
+      color: #7a69a3;
+      line-height: 1.3;
     }
-    .suggestion-link {
-      color: #0fcfeb;
-      font-weight: bold;
-      font-size: 14px;
+    .suggestion-bottom {
+      text-align: right;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #9a7bcf;
+      transition: color 0.3s ease;
     }
-    p.contact {
-      margin-top: 40px;
-      font-weight: bold;
-      color: #0fcfeb;
+    .suggestion-bottom:hover {
+      color: #6a4ca2;
+      text-decoration: underline;
     }
+    /* Footer */
     footer {
-      margin-top: 30px;
-      font-size: 13px;
-      color: #888;
+      background-color: #6a4ca2; /* darker lavender */
+      color: #fef9f6; /* cream white */
       text-align: center;
+      padding: 1rem 2rem;
+      font-weight: 600;
+    }
+    /* Responsive */
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2.25rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+      .search-form {
+        flex-direction: column;
+      }
+      button.search-btn {
+        width: 100%;
+        padding: 1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Decentralized Ride App</h1>
-    <h2>Fair, Transparent, On-Chain Uber Alternative</h2>
-
-    <div class="features">
-      <ul>
-        <li>90% earnings go to drivers</li>
-        <li>Only 10% flat platform fee</li>
-        <li>Powered by Solana blockchain</li>
-        <li>Instant payments in USDC</li>
-      </ul>
+  <nav>
+    <div class="logo" aria-label="Decentral Ride Logo">
+      <span>De</span>central Ride
     </div>
+    <div class="nav-links">
+      <a href="#hero">Home</a>
+      <a href="#ride-options">Rides</a>
+      <a href="#suggestions">Suggestions</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
 
-    <div class="suggestions">
-      <h2>Suggestions</h2>
-      <div class="suggestions-grid">
-        <div class="suggestion-box">
-          <img src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,w_375,h_210/v1647371944/assets/28/67b69b-11ae-45a5-bac2-19e944cf7a83/original/Ride-with-Uber.png" alt="Ride">
-          <div class="suggestion-content">
-            <div class="suggestion-title">Ride</div>
-            <div class="suggestion-desc">Go anywhere with Uber. Request a ride, hop in, and go.</div>
-            <div class="suggestion-link">Details</div>
-          </div>
-        </div>
-        <div class="suggestion-box">
-          <img src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,w_375,h_210/v1613525380/assets/b0/5f1a32-84c7-42d1-a604-144f84b267d3/original/Uber-Reserve.png" alt="Reserve">
-          <div class="suggestion-content">
-            <div class="suggestion-title">Reserve</div>
-            <div class="suggestion-desc">Reserve your ride in advance so you can relax on the day of your trip.</div>
-            <div class="suggestion-link">Details</div>
-          </div>
-        </div>
-        <div class="suggestion-box">
-          <img src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,w_375,h_210/v1628112040/assets/f4/49c1cb-d04a-4236-b4cb-e6e445f6c878/original/Uber-Rent.png" alt="Rental Cars">
-          <div class="suggestion-content">
-            <div class="suggestion-title">Rental Cars</div>
-            <div class="suggestion-desc">Your perfect rental car is a few clicks away. Learn more about Uber Rent.</div>
-            <div class="suggestion-link">Details</div>
-          </div>
-        </div>
-        <div class="suggestion-box">
-          <img src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,w_375,h_210/v1625775635/assets/5e/92cb6a-d75a-45d8-860b-163172b91f92/original/Uber-Courier.png" alt="Courier">
-          <div class="suggestion-content">
-            <div class="suggestion-title">Courier</div>
-            <div class="suggestion-desc">Uber makes same-day item delivery easier than ever.</div>
-            <div class="suggestion-link">Details</div>
-          </div>
-        </div>
-        <div class="suggestion-box">
-          <img src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,w_375,h_210/v1647371944/assets/bd/f11bc3-cdbf-4f58-9a2d-cb00f260edcc/original/Uber-Eats.png" alt="Food">
-          <div class="suggestion-content">
-            <div class="suggestion-title">Food</div>
-            <div class="suggestion-desc">Order delivery from local restaurants with Uber Eats.</div>
-            <div class="suggestion-link">Details</div>
-          </div>
-        </div>
-        <div class="suggestion-box">
-          <img src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,w_375,h_210/v1625775635/assets/8e/4fa51f-5721-4dd4-9d36-494c936008a6/original/Uber-Grocery.png" alt="Grocery">
-          <div class="suggestion-content">
-            <div class="suggestion-title">Grocery</div>
-            <div class="suggestion-desc">Get groceries delivered to your door with Uber Eats.</div>
-            <div class="suggestion-link">Details</div>
-          </div>
-        </div>
+  <section class="hero" id="hero">
+    <h1>Decentral Ride</h1>
+    <p>Fair, Transparent, and On-Chain Uber Alternative</p>
+    <form class="search-form" onsubmit="event.preventDefault(); alert('Search coming soon!');">
+      <div class="search-group">
+        <label for="pickup">Pickup Location</label>
+        <input type="text" id="pickup" name="pickup" placeholder="Enter pickup location" required />
+      </div>
+      <div class="search-group">
+        <label for="dropoff">Dropoff Location</label>
+        <input type="text" id="dropoff" name="dropoff" placeholder="Enter dropoff location" required />
+      </div>
+      <button type="submit" class="search-btn">Find a Ride</button>
+    </form>
+  </section>
+
+  <section class="ride-options" id="ride-options">
+    <h2>Choose Your Ride</h2>
+    <div class="options-grid">
+      <div class="option-card">
+        <div class="option-title">Economy</div>
+        <div class="option-desc">Affordable rides for everyday trips.</div>
+      </div>
+      <div class="option-card">
+        <div class="option-title">Premium</div>
+        <div class="option-desc">Comfort and style for special occasions.</div>
+      </div>
+      <div class="option-card">
+        <div class="option-title">SUV</div>
+        <div class="option-desc">Spacious rides for groups and luggage.</div>
+      </div>
+      <div class="option-card">
+        <div class="option-title">Electric</div>
+        <div class="option-desc">Eco-friendly rides powered by electricity.</div>
       </div>
     </div>
+  </section>
 
-    <p class="contact">📬 Contact: sahilkaila21@email.com</p>
-    <footer>
-      Built with ❤️ for the Web3 community and love for decentralization. @copyright Kaila.
-    </footer>
-  </div>
+  <section class="suggestions" id="suggestions">
+    <h2>Suggestions</h2>
+    <div class="suggestions-grid">
+      <div class="suggestion-card" tabindex="0">
+        <div class="suggestion-top">
+          <div class="suggestion-title">Ride</div>
+          <div class="suggestion-desc">Go anywhere with Uber. Request a ride, hop in, and go.</div>
+        </div>
+        <div class="suggestion-bottom">Details</div>
+      </div>
+      <div class="suggestion-card" tabindex="0">
+        <div class="suggestion-top">
+          <div class="suggestion-title">Reserve</div>
+          <div class="suggestion-desc">Reserve your ride in advance so you can relax on the day of your trip.</div>
+        </div>
+        <div class="suggestion-bottom">Details</div>
+      </div>
+      <div class="suggestion-card" tabindex="0">
+        <div class="suggestion-top">
+          <div class="suggestion-title">Rental Cars</div>
+          <div class="suggestion-desc">Your perfect rental car is a few clicks away. Learn more about Uber Rent.</div>
+        </div>
+        <div class="suggestion-bottom">Details</div>
+      </div>
+      <div class="suggestion-card" tabindex="0">
+        <div class="suggestion-top">
+          <div class="suggestion-title">Courier</div>
+          <div class="suggestion-desc">Uber makes same-day item delivery easier than ever.</div>
+        </div>
+        <div class="suggestion-bottom">Details</div>
+      </div>
+      <div class="suggestion-card" tabindex="0">
+        <div class="suggestion-top">
+          <div class="suggestion-title">Food</div>
+          <div class="suggestion-desc">Order delivery from local restaurants with Uber Eats.</div>
+        </div>
+        <div class="suggestion-bottom">Details</div>
+      </div>
+      <div class="suggestion-card" tabindex="0">
+        <div class="suggestion-top">
+          <div class="suggestion-title">Grocery</div>
+          <div class="suggestion-desc">Get groceries delivered to your door with Uber Eats.</div>
+        </div>
+        <div class="suggestion-bottom">Details</div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    📬 Contact: sahilkaila21@email.com &nbsp;&nbsp;|&nbsp;&nbsp; Built with ❤️ for Decentralization @copyright Kaila. 
+  </footer>
 </body>
 </html>
